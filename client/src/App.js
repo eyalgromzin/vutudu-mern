@@ -1,25 +1,49 @@
 import React, { Component } from 'react';
-import AppNavbar from './components/AppNavbar';
-import ShoppingList from './components/ShoppingList';
-import ItemModal from './components/ItemModal';
-import { Container } from 'reactstrap';
 
+import Layout from './layout/layout'
+
+import { createStore } from 'redux';
 import { Provider } from 'react-redux';
-import store from './store';
+import { connect } from 'react-redux';
+import store from './redux/store'
 
-import 'bootstrap/dist/css/bootstrap.min.css';
-import './App.css';
+
+export const showIdeaPage = 'SHOW_IDEA';
+export const createIdeaPage = 'CREATE_IDEA';
 
 class App extends Component {
+  
+
+  constructor(){
+    super();
+
+    //TODO: get current page from redux
+    this.state = {
+      currentPage: createIdeaPage,
+      place: ''
+    }
+  }
+
   render() {
     return (
       <Provider store={store}>
-        <div className="App">
-          
-        </div>
+         <Layout /> 
       </Provider>
     );
   }
 }
 
+// function mapStateToProps(state) {
+//   return {
+//     currentPage: state.commonReducer.currentPage
+//   };
+// }
+
+function mapStateToProps(state) {
+  return {
+    place: state.searchReducer.place
+  };
+}
+
 export default App;
+// export default App;
